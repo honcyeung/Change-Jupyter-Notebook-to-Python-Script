@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo 'Enter the file name you want to convert (without .ipynb)':
+read filename
+if [ -e $filename.py ]
+then
+	echo File of the same in .py format already exists. Conversion stops!
+else
+	jupyter nbconvert $filename.ipynb --to script
+	echo
+	chmod a+x $filename.py
+	sed -i '' '/^# In/d' $filename.py
+fi
